@@ -40,5 +40,5 @@ This means the code must emit `signals` such as `traces`, `metrics`, and `logs`.
 troubleshooting without needing to add more instrumentation.
 
 [OpenTelemetry](https://opentelemetry.io/docs/what-is-opentelemetry/) is an observability framework that instruments application code, facilitating the management of telemetry data throughout the entire stack. It gathers traces, 
-metrics, and logs from across our system, enhancing its observability.
+metrics, and logs from across the system, enhancing its observability.
 
