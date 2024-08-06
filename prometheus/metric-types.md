@@ -146,6 +146,69 @@ This helps determine trends such as the number of requests per second.
 
 These functions are useful for analyzing the rate of change and identifying performance trends.
 
+### Querying Counters
+
+#### Current Value
+Returns the current total count of HTTP requests.
+```promql
+http_requests_total
+```
+
+#### Calculate the rate of increase per second:
+Calculates the per-second average rate of HTTP requests over the last 5 minutes.
+```promql
+rate(http_requests_total[5m])
+```
+
+#### Calculate the rate of increase per second, filtered by labels:
+Calculates the per-second average rate of HTTP requests for the api-server job over the last 5 minutes.
+```promql
+rate(http_requests_total{job="api-server"}[5m])
+```
+
+#### Sum over all instances:
+Sums the total count of HTTP requests across all instances.
+```promql
+sum(http_requests_total)
+```
+
+#### Sum rate over all instances:
+Calculates the total rate of HTTP requests across all instances over the last 5 minutes.
+```promql
+sum(rate(http_requests_total[5m]))
+```
+
+#### Calculate the increase over a time period:
+Calculates the increase in the count of HTTP requests over the last hour.
+```promql
+increase(http_requests_total[1h])
+```
+
+#### Monitor the total requests per endpoint:
+Calculates the rate of HTTP requests per endpoint over the last 5 minutes.
+```promql
+sum by (handler) (rate(http_requests_total[5m]))
+```
+
+#### Top 5 endpoints with the highest request rate:
+Returns the top 5 endpoints with the highest request rate over the last 5 minutes.
+```promql
+topk(5, sum by (handler) (rate(http_requests_total[5m])))
+```
+
+#### Top 5 endpoints with the highest request rate:
+Returns the top 5 endpoints with the highest request rate over the last 5 minutes.
+```promql
+topk(5, sum by (handler) (rate(http_requests_total[5m])))
+```
+
+#### Request rate per instance with a graphical representation:
+Show the request rate per instance for the `api-server job` over the last 5 minutes.
+```promql
+rate(http_requests_total{job="api-server"}[5m])
+```
+
+
 <a name="summaries"></a>
 ## Summaries
 
