@@ -12,8 +12,8 @@ It collects and stores metrics as time series data, recording information with a
 
 Prometheus is widely used in cloud-native environments and is part of the Cloud Native Computing Foundation (CNCF).
 
-## [Metric Types](metric-types.md)
-### [Gauges](metric-types.md#gauges)
-### [Counters](metric-types.md#counters)
-### [Summaries](metric-types.md#summaries)
-### [Histograms](metric-types.md#histograms)
+## [Metric Types](#metric-types.md)
+### [Gauges](#metric-types.md#gauges)
+### [Counters](#metric-types.md#counters)
+### [Summaries](#metric-types.md#summaries)
+### [Histograms](#metric-types.md#histograms)
