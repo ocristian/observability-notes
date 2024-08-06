@@ -10,6 +10,12 @@
 <a name="gauges"></a>
 ## Gauges
 
+<!-- TOC depthFrom:2 -->
+- [Gauge Instrumentation Methods](#gauge-instrumentation-methods)
+- [Gauge Exposition](#gauge-exposition)
+- [Querying Gauges](#querying-gauges)
+<!-- /TOC -->
+
 A **Gauge** represents a single numerical value that **can arbitrarily go up and down**. Gauges are used to measure values that can fluctuate over time, such as:
 
 - Current memory usage
@@ -31,7 +37,7 @@ queueLength.set(0);
 ```
 
 #### `inc()` and `dec()`
-Increases or decreases the current value.
+Increment or decrement the gauge by 1 or a specified value.
 ```java
 queueLength.inc(); // Increment by 1
 queueLength.dec(); // Decrement by 1
@@ -45,13 +51,6 @@ Sets the Gauge to the current time, useful for tracking events like boot time, p
 ```java
 aTimestamp.setToCurrentTime();
 ```
-
-#### Summary
-
-- **`set()`**: Directly sets the gauge to a specific value.
-- **`inc()` and `dec()`**: Increment or decrement the gauge by 1 or a specified value.
-- **`setToCurrentTime()`**: Sets the gauge to the current time, ideal for monitoring the timing of specific events. 
-
 
 ### Gauge Exposition
 
@@ -93,6 +92,12 @@ These queries help monitor and analyze gauge metrics effectively in Prometheus.
 
 <a name="counters"></a>
 ## Counters
+
+<!-- TOC depthFrom:2 -->
+- [Counter Instrumentation Methods](#counter-instrumentation-methods)
+- [Counter Exposition](#counter-exposition)
+- [Querying Counters](#querying-counters)
+<!-- /TOC -->
 
 A **Counter** is a cumulative metric that represents a single **numerical value that only ever goes up**. It is used to measure values that only increase over time, such as:
 
@@ -212,6 +217,12 @@ rate(http_requests_total{job="api-server"}[5m])
 <a name="summaries"></a>
 ## Summaries
 
+<!-- TOC depthFrom:2 -->
+- [Summary Instrumentation Methods](#summary-instrumentation-methods)
+- [Summary Exposition](#summary-exposition)
+- [Querying Summaries](#querying-summaries)
+<!-- /TOC -->
+
 A **Summary** captures individual observations and provides a total count of observations and a sum of all observed values.  
 Summaries can also calculate configurable quantiles over a sliding time window. **They are useful for measuring things like request durations or response sizes**.
 
@@ -261,7 +272,7 @@ The output of a Summary is a collection of Gauge and Counter metrics. However, i
 If you need to aggregate data, consider using a Histogram metric instead.
 
 
-### Querying Counters
+### Querying Summaries
 
 #### Retrieve the count of observations:
 Returns the total number of observed events (e.g., HTTP requests).
@@ -347,6 +358,12 @@ To `plot` the `99th percentile` request duration over time for the `api-server` 
 <a name="histograms"></a>
 ## Histograms
 
+<!-- TOC depthFrom:2 -->
+- [Histogram Instrumentation Methods](#histogram-instrumentation-methods)
+- [Histogram Exposition](#histogram-exposition)
+- [Querying Histograms](#querying-histograms)
+<!-- /TOC -->
+
 A **Histogram** samples observations and counts them in configurable buckets. It is useful for measuring the distribution of values, such as request durations or response sizes.
 
 #### Key Features:
@@ -397,6 +414,8 @@ lettuce_command_firstresponse_seconds_bucket{le="+Inf"} 201109
 lettuce_command_firstresponse_seconds_count 171458
 lettuce_command_firstresponse_seconds_sum 28.27548449
 ```
+
+### Querying Histograms
 
 #### Quantiles from Histograms
 
