@@ -203,7 +203,7 @@ topk(5, sum by (handler) (rate(http_requests_total[5m])))
 ```
 
 #### Request rate per instance with a graphical representation:
-Show the request rate per instance for the `api-server job` over the last 5 minutes.
+Show the request rate per instance for the `api-server` job over the last 5 minutes.
 ```promql
 rate(http_requests_total{job="api-server"}[5m])
 ```
@@ -259,6 +259,90 @@ http_server_requests_seconds_sum 4.124702425
 The output of a Summary is a collection of Gauge and Counter metrics. However, it's important not to try averaging or aggregating percentiles from multiple service instances or other label dimensions, as there is no statistically valid way to average percentiles.
 
 If you need to aggregate data, consider using a Histogram metric instead.
+
+
+### Querying Counters
+
+#### Retrieve the count of observations:
+Returns the total number of observed events (e.g., HTTP requests).
+```promql
+http_request_duration_seconds_count
+```
+
+#### Retrieve the sum of observed values:
+Returns the sum of all observed durations.
+```promql
+http_request_duration_seconds_sum
+```
+
+#### Retrieve a specific quantile (e.g., the 95th percentile):
+Returns the 95th percentile of the request durations.
+```promql
+http_request_duration_seconds{quantile="0.95"}
+```
+
+#### Filter by specific labels and retrieve the 95th percentile:
+Filters the `http_request_duration_seconds` metric by `job`, `instance`, and `quantile` labels to get the `95th percentile` for a specific instance.
+```promql
+http_request_duration_seconds{job="api-server", instance="localhost:8000", quantile="0.95"}
+```
+
+#### Calculate the rate of count increase per second:
+Calculates the per-second rate of increase in the count of HTTP requests over the last 5 minutes.
+```promql
+rate(http_request_duration_seconds_count[5m])
+```
+
+#### Sum of counts over all instances:
+`Sums` the `total count` of HTTP requests across all instances.
+```promql
+sum(http_request_duration_seconds_count)
+```
+
+#### Sum of durations over all instances:
+`Sums` the `total duration` of HTTP requests across all instances.
+```promql
+sum(http_request_duration_seconds_sum)
+```
+
+#### Request duration quantiles per endpoint:
+Retrieves the `99th percentile` of request durations for each endpoint.
+```promql
+http_request_duration_seconds{quantile="0.99"} by (handler)
+```
+
+#### Average request duration per endpoint:
+Calculates the average request duration per endpoint over the last 5 minutes.
+```promql
+ sum by (handler) (rate(http_request_duration_seconds_sum[5m])) 
+/ 
+ sum by (handler) (rate(http_request_duration_seconds_count[5m]))
+```
+
+#### Top 5 endpoints with the highest 95th percentile request duration:
+Returns the top 5 endpoints with the highest 95th percentile request duration.
+```promql
+ topk(5, http_request_duration_seconds{quantile="0.95"} by (handler))
+```
+
+#### Total count of HTTP requests over the last hour:
+Calculates the total count of HTTP requests over the last hour.
+```promql
+ increase(http_request_duration_seconds_count[1h])
+```
+
+#### Total sum of HTTP request durations over the last hour:
+Calculates the total sum of HTTP request durations over the last hour.
+```promql
+ increase(http_request_duration_seconds_sum[1h])
+```
+
+#### Visualize the 99th percentile request duration over time for a specific job:
+To `plot` the `99th percentile` request duration over time for the `api-server` job.
+```promql
+ http_request_duration_seconds{job="api-server", quantile="0.99"}
+```
+
 
 <a name="histograms"></a>
 ## Histograms
