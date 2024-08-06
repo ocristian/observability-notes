@@ -418,8 +418,7 @@ lettuce_command_firstresponse_seconds_sum 28.27548449
 ### Querying Histograms
 
 #### Quantiles from Histograms
-
-90th Percentile latency, averaged over the last 5 minutes:
+`90th Percentile` latency, averaged over the last 5 minutes:
 
 ```promql
 histogram_quantile(
@@ -429,7 +428,7 @@ histogram_quantile(
 ```
 
 #### Aggregated Histogram Quantiles
-90th Percentile latency for each path/method combination, averaged over the last 5 minutes:
+`90th Percentile` latency for each path/method combination, averaged over the last 5 minutes:
 
 ```promql
 histogram_quantile(
