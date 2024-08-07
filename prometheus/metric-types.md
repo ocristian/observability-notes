@@ -64,25 +64,81 @@ disk_free_bytes 1.0634604544E11
 
 ### Querying Gauges
 
-#### Current Value
-To get the current value of the `queue_length` gauge, use:
+#### Retrieve the current value of a Gauge:
+Returns the current value of the `queue_length` gauge.
 ```promql
 queue_length
 ```
 
-#### Querying Over Time
-To see how the value of the gauge has changed over the past 5 minutes, use:
+
+#### Filter by specific labels:
+Filters the `node_memory_active_bytes` gauge by `job` and `instance` labels to get the value for a specific `job` and `instance`.
 ```promql
-queue_length[5m]
+node_memory_active_bytes{job="node_exporter", instance="localhost:9100"}
 ```
 
-#### Applying Functions
-
-To get the average value of the gauge over the past 5 minutes, use:
+#### Retrieve the value of a Gauge over a time range:
+Retrieves the values of `node_memory_active_bytes` over the past hour for the `node_exporter` job.
 ```promql
-avg_over_time(queue_length[5m])
+node_memory_active_bytes{job="node_exporter"}[1h]
 ```
 
+
+#### Sum of gauge values over all instances:
+Sums the `node_memory_active_bytes` values across all instances.
+```promql
+sum(node_memory_active_bytes)
+```
+
+
+#### Average value of gauge across instances:
+Calculates the average value of `node_memory_active_bytes` across all instances.
+```promql
+avg(node_memory_active_bytes)
+```
+
+
+#### Maximum value over all instances:
+Finds the maximum value of `node_memory_active_bytes` across all instances.
+```promql
+max(node_memory_active_bytes)
+```
+
+
+#### Rate of change per minute over the last 5 minutes:
+Calculates the per-minute rate of change for `node_memory_active_bytes` over the last 5 minutes.
+```promql
+rate(node_memory_active_bytes[5m])
+```
+
+
+#### Find the maximum memory usage in the last 24 hours:
+Finds the maximum value of `node_memory_active_bytes` over the last 24 hours.
+```promql
+max_over_time(node_memory_active_bytes[24h])
+```
+
+
+#### Find the minimum temperature recorded by a sensor in the last week (assuming a temperature gauge metric):
+Finds the minimum temperature recorded by `sensor1` over the past week.
+```promql
+min_over_time(temperature{sensor="sensor1"}[1w])
+```
+
+#### Filter instances where the current memory usage is above 1 GB:
+Returns the instances where `node_memory_active_bytes` is greater than 1 gigabyte.
+```promql
+node_memory_active_bytes > 1024 * 1024 * 1024
+```
+
+
+#### Plot the average CPU usage over time:
+Calculates the `average CPU idle time per instance`, which can be used to plot a graph in Grafana to monitor CPU usage.
+```promql
+avg(node_cpu_seconds_total{mode="idle"}) by (instance)
+```
+
+#### time() function
 To determine how long ago an event occurred using a timestamp gauge, use:
 ```promql
 time() - process_start_time_seconds
