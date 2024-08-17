@@ -1,7 +1,9 @@
 # Prometheus
 
 Prometheus is an open-source monitoring and alerting toolkit designed for reliability and scalability.  
-It collects and stores metrics as time series data, recording information with a timestamp. Key features include:
+It collects and stores metrics as time series data, recording information with a timestamp. 
+
+### Key features
 
 - **Data Collection**: Pulls metrics from configured targets at specified intervals.
 - **Powerful Query Language (PromQL)**: Allows slicing and dicing of collected time series data to generate meaningful insights.

@@ -257,12 +257,6 @@ Returns the top 5 endpoints with the highest request rate over the last 5 minute
 topk(5, sum by (handler) (rate(http_requests_total[5m])))
 ```
 
-#### Top 5 endpoints with the highest request rate:
-Returns the top 5 endpoints with the highest request rate over the last 5 minutes.
-```promql
-topk(5, sum by (handler) (rate(http_requests_total[5m])))
-```
-
 #### Request rate per instance with a graphical representation:
 Show the request rate per instance for the `api-server` job over the last 5 minutes.
 ```promql
@@ -323,7 +317,8 @@ http_server_requests_seconds_count 3020.0
 http_server_requests_seconds_sum 4.124702425
 ```
 
-The output of a Summary is a collection of Gauge and Counter metrics. However, it's important not to try averaging or aggregating percentiles from multiple service instances or other label dimensions, as there is no statistically valid way to average percentiles.
+The output of a Summary is a collection of Gauge and Counter metrics. However, it's important not to try averaging or aggregating percentiles from multiple service instances or 
+other label dimensions, as there is no statistically valid way to average percentiles.
 
 If you need to aggregate data, consider using a Histogram metric instead.
 
