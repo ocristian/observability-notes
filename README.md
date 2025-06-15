@@ -41,5 +41,10 @@ troubleshooting without needing to add more instrumentation.
 
 [OpenTelemetry](https://opentelemetry.io/docs/what-is-opentelemetry/) is an observability framework that instruments application code, facilitating the management of telemetry data throughout the entire stack. It gathers `traces`, `metrics`, and `logs` from across the system, enhancing its observability.
 
+## Fundamentals
+
+### [Performance Metrics Concepts](fundamentals/performance-metrics-concepts.md)
+### [Prometheus](prometheus/README.md)
+
 
 
